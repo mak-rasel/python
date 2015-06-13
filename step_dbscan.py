@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from sklearn.cluster import DBSCAN
 
-filename = 'C:\\Users\\kader\\Documents\\a_array.txt'
+filename = 'C:\\Users\\kader\\Documents\\GitHub\\python-projet\\a_array.txt'
 f = open(filename, 'r')
 a_array = np.loadtxt(f, dtype='<i4', delimiter=',')
 a_edge=a_array[:,0].reshape(-1,1)
