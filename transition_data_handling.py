@@ -16,11 +16,13 @@ all_array = np.loadtxt(f_data, delimiter=',')
 f = open(file_step, 'r')
 a_array = np.loadtxt(f, dtype='<i4', delimiter=',')
 a_edge=a_array[:,0].reshape(-1,1)
+time = all_array[:,0]
 
+result = result
 #%%
 #plot the tags
-x = all_array[:,0]
-y = all_array[:,1]
-plt.plot(x,y)
+index = 2
+y = all_array[:,index]
+plt.plot(time,y)
 
 plt.show()

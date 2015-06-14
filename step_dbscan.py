@@ -29,7 +29,7 @@ plt.show()
 t0 = time()         
 db_scan = DBSCAN(eps=90, min_samples=1)
 db_scan.fit(a_edge)
-a_label = db_scan.labels_
+a_label = db_scan.labels_ + 1
 print (time() - t0)
 
 #%%
