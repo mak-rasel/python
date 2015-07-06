@@ -31,15 +31,14 @@ db_scan = DBSCAN(eps=90, min_samples=1)
 db_scan.fit(a_edge)
 a_label = db_scan.labels_ + 1
 print (time() - t0)
-
+result = sorted([(a_edge[a_label==x].min(),x,a_array[a_label==x])
+ for x in np.unique(a_label)])
 #%%
 # plotting the results
 
 plt.clf()
 plt.axis([0,7000,0,24])
 c = ['r', 'g', 'b', 'k', 'm']
-result = sorted([(a_edge[a_label==x].min(),x,a_array[a_label==x])
- for x in np.unique(a_label)])
 for i, x in enumerate(result):
     [plt.axvline(xi,0,float(yi)/24,color=c[i%5]) for xi, yi in x[2]]
 

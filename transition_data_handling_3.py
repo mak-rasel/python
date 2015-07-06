@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jun 13 15:33:18 2015
+Created on Mon Jul 06 07:54:38 2015
 
 @author: kader
 """
@@ -10,8 +10,8 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from sklearn.cluster import DBSCAN
 
-file_data = 'C:\\Users\\kader\\Documents\\GitHub\\python-projet\\All_array.txt'
-file_step = 'C:\\Users\\kader\\Documents\\GitHub\\python-projet\\a_array.txt'
+file_data = 'C:\\Users\\kader\\Documents\\GitHub\\python-projet\\Array_3.txt'
+file_step = 'C:\\Users\\kader\\Documents\\GitHub\\python-projet\\a_array_3.txt'
 f_data = open(file_data, 'r')
 all_array = np.loadtxt(f_data, delimiter=',')
 tag_edge = np.array([1, 2, 3, 4, 5, 7, 8, 17, 18,
@@ -47,12 +47,14 @@ for x in result:
     print x[0], x[1], [y for yi, y in x[2]] 
 
 time_step = [x[0] for x in result]
+diff = 350 - time_step[0]
+time_step_sync = [x + diff for x in time_step] 
 time_step.append(sec[-1])
 time_step.insert(0,sec[0])
 
 #%%
 #plot the tags
-index = 24
+index = 5
 y = all_array[:,tag_edge[index-1]]
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -68,12 +70,14 @@ edge=a_edge[a_array[:,1]==index]
 init_time = 1
 end_time = 0
 data=[]
+n = 0
 for ii,e in enumerate(edge):
-    if edge[ii] < sec[end_time]: continue
+    if edge[ii] < sec[end_time] and edge[ii] != edge[-1]: continue
     for i,x in enumerate(time_step[init_time:],init_time):
         if x>e and time_step[i-1]<=e:
             #the time span has transition response
-            print "transition step %i from %i to %i" %(i,e, x) 
+            n+=1
+            print "%i transition step %i from %i to %i" %(n,i,e, x) 
             ax.axvline(e,0,1)
             ax.axvline(x,0,1)
             #get the data
@@ -81,13 +85,11 @@ for ii,e in enumerate(edge):
             end_time = np.argwhere(sec==x)
             data.append([i,all_array[start_time:end_time,tag_edge[index-1]]])
             init_time=i+1
-            if edge[ii]==edge[-1]:
-                continue
-            else:
-                break
+            break
         else:
             #time span is in steady state monitoring
-            print "steady state from %i to %i" %(time_step[i-1],x) 
+            n+=1
+            print "%i steady state from %i to %i" %(n,time_step[i-1],x) 
 
             
 #plt.draw()
