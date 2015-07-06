@@ -25,7 +25,7 @@ time_step.append(sec[-1])
 time_step.insert(0,sec[0])
 #%%
 #plot the tags
-index = 5
+index = 24
 y = all_array[:,tag_edge[index-1]]
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -54,7 +54,10 @@ for ii,e in enumerate(edge):
             end_time = np.argwhere(sec==x)
             data.append([i,all_array[start_time:end_time,tag_edge[index-1]]])
             init_time=i+1
-            break
+            if edge[ii]==edge[-1]:
+                continue
+            else:
+                break
         else:
             #time span is in steady state monitoring
             print "steady state from %i to %i" %(time_step[i-1],x) 
